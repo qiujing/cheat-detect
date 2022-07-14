@@ -1,0 +1,53 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="!(isHandset$ | async)" *ngIf="reviewer.reviewer_id>0">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/review" routerLinkActive="active">
+        <fa-icon [icon]="faSearch"></fa-icon>
+        Start Review</a>
+
+      <a mat-list-item routerLink="/re-review" routerLinkActive="active">
+        <fa-icon [icon]="faCheckSquare"></fa-icon>
+        Second Review</a>
+
+      <a mat-list-item routerLink="/rank" routerLinkActive="active">
+        <fa-icon [icon]="faListUl"></fa-icon>
+        Rank</a>
+
+      <a mat-list-item routerLink="/code-similarity" routerLinkActive="active"><fa-icon [icon]="faCode"></fa-icon> Code Similarity</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" *ngIf="reviewer.reviewer_id>0">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <fa-icon aria-label="Side nav toggle icon" [icon]="faBars"></fa-icon>
+      </button>
+      <span>Review Code</span>
+
+      <span class="example-spacer"></span>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <fa-icon [icon]="faUserCircle"></fa-icon>
+        {{reviewer.user_name}}
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onLogout()">
+          <fa-icon [icon]="faSignOutAlt"></fa-icon>
+          Logout
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <div class="content">
+      <app-alert></app-alert>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

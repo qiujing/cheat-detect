@@ -1,0 +1,40 @@
+<div>
+  <button mat-raised-button (click)="start()" [disabled]="submitting">Compute</button>
+</div>
+
+<div style="margin-top: 20px">
+  <div ace-editor [(text)]="code[0]"
+       [mode]="'c_cpp'"
+       [theme]="'eclipse'"
+       [readOnly]="false"
+       [autoUpdateContent]="true"
+       style="min-height: 200px; width:49%; overflow: auto;float: left"></div>
+
+  <div ace-editor [(text)]="code[1]"
+       [mode]="'c_cpp'"
+       [theme]="'eclipse'"
+       [readOnly]="false"
+       [autoUpdateContent]="true"
+       style="min-height: 200px; width:49%; overflow: auto;margin-left: 10px;float: left"></div>
+  <div style="clear:both"></div>
+</div>
+
+<div style="margin-top: 20px" *ngIf="result">
+  <div ace-editor [(text)]="result.graphJson[0]"
+       [mode]="'json'"
+       [theme]="'eclipse'"
+       [readOnly]="false"
+       [autoUpdateContent]="true"
+       style="min-height: 200px; width:49%; overflow: auto;float: left"></div>
+
+  <div ace-editor [(text)]="result.graphJson[1]"
+       [mode]="'json'"
+       [theme]="'eclipse'"
+       [readOnly]="false"
+       [autoUpdateContent]="true"
+       style="min-height: 200px; width:49%; overflow: auto;margin-left: 10px;float: left"></div>
+</div>
+
+<div *ngIf="result">
+  Similarity: {{result.similarity}}
+</div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hrbust.cheatreview.mapper.ReviewerMapper">
+    <select id="getReviewer" resultType="edu.hrbust.cheatreview.bean.Reviewer">
+        SELECT *
+        FROM reviewer
+        WHERE user_name=#{user_name} LIMIT 1
+    </select>
+
+    <insert id="insertReviewer" parameterType="edu.hrbust.cheatreview.bean.Reviewer" useGeneratedKeys="true" keyProperty="reviewer_id">
+        INSERT INTO reviewer(user_name,create_time) VALUES(#{user_name}, NOW())
+    </insert>
+
+    <select id="getRankList" resultType="edu.hrbust.cheatreview.bean.RankItem">
+        SELECT user_name, (SELECT COUNT(record_id) FROM record WHERE reviewer_id=reviewer.reviewer_id) AS number FROM reviewer ORDER BY number
+    </select>
+</mapper>

@@ -1,0 +1,19 @@
+<div class="signin-content">
+  <mat-progress-bar mode="buffer" *ngIf="loading"></mat-progress-bar>
+  <mat-card>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()">
+        <h1>Direct Output Cheat Review System</h1>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Name" [formControl]="userName" required type="text">
+          <mat-error *ngIf="userName.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+          <fa-icon [icon]="faSignInAlt"></fa-icon>
+          Login/Reg
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

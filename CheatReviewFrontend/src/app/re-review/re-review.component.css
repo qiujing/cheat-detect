@@ -1,0 +1,19 @@
+mat-card {
+  margin-bottom: 10px;
+}
+
+mat-card-header span {
+  margin-right: 10px;
+}
+
+mat-card-header {
+  margin-bottom: 5px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.left {
+  margin-left: 16px;
+}

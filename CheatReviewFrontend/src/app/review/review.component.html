@@ -1,0 +1,86 @@
+<div class="button-row" *ngIf="records">
+  <button mat-raised-button (click)="setResult(null, 1)" [disabled]="isLoadingResults" class="alert"
+          [matBadge]="countCheat()" matBadgePosition="before" matBadgeColor="accent"
+          [matBadgeHidden]="countCheat()==='0'">
+    <fa-icon [icon]="faTimes"></fa-icon>
+    All Cheats
+  </button>
+
+  <button mat-raised-button (click)="setResult(null, 2)" [disabled]="isLoadingResults" class="normal"
+          [matBadge]="countNormal()" matBadgePosition="before" matBadgeColor="accent"
+          [matBadgeHidden]="countNormal()==='0'">
+    <fa-icon [icon]="faCheck"></fa-icon>
+    All Normals
+  </button>
+  <button mat-raised-button (click)="setResult(null, 3)" [disabled]="isLoadingResults" [matBadge]="countNotSure()"
+          matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden]="countNotSure()==='0'">
+    <fa-icon [icon]="faQuestion"></fa-icon>
+    All Not Sures
+  </button>
+  <button mat-raised-button (click)="submit()" [disabled]="isLoadingResults" color="primary">
+    <fa-icon [icon]="faSave"></fa-icon>
+    Submit
+  </button>
+  <button mat-raised-button (click)="reset()" [disabled]="isLoadingResults">Reset</button>
+  PAGE SIZE:
+  <mat-slider min="1" max="50" step="1" [(ngModel)]="limit"></mat-slider>
+  <span>{{limit}}</span>
+</div>
+<mat-progress-bar mode="query" *ngIf="isLoadingResults"></mat-progress-bar>
+<ul class="list">
+  <li *ngFor="let record of records">
+    <mat-card>
+      <mat-card-content>
+        <div>
+          #{{record.record_id}}
+        </div>
+        <pre>
+<code [highlight]="record.code"></code>
+</pre>
+      </mat-card-content>
+      <mat-action-row>
+        <mat-button-toggle-group name="state" aria-label="State" [(ngModel)]="record.state_new">
+          <mat-button-toggle [value]="1" class="alert">
+            <fa-icon [icon]="faTimes"></fa-icon>
+            Cheat
+          </mat-button-toggle>
+          <mat-button-toggle [value]="2" class="normal">
+            <fa-icon [icon]="faCheck"></fa-icon>
+            Normal
+          </mat-button-toggle>
+          <mat-button-toggle [value]="3">
+            <fa-icon [icon]="faQuestion"></fa-icon>
+            Not Sure
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mat-action-row>
+    </mat-card>
+  </li>
+</ul>
+
+<p *ngIf="!records">Nothing</p>
+<div class="button-row" *ngIf="records">
+  <button mat-raised-button (click)="setResult(null, 1)" [disabled]="isLoadingResults" class="alert"
+          [matBadge]="countCheat()" matBadgePosition="before" matBadgeColor="accent"
+          [matBadgeHidden]="countCheat()==='0'">
+    <fa-icon [icon]="faTimes"></fa-icon>
+    All Cheats
+  </button>
+
+  <button mat-raised-button (click)="setResult(null, 2)" [disabled]="isLoadingResults" class="normal"
+          [matBadge]="countNormal()" matBadgePosition="before" matBadgeColor="accent"
+          [matBadgeHidden]="countNormal()==='0'">
+    <fa-icon [icon]="faCheck"></fa-icon>
+    All Normals
+  </button>
+  <button mat-raised-button (click)="setResult(null, 3)" [disabled]="isLoadingResults" [matBadge]="countNotSure()"
+          matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden]="countNotSure()==='0'">
+    <fa-icon [icon]="faQuestion"></fa-icon>
+    All Not Sures
+  </button>
+  <button mat-raised-button (click)="submit()" [disabled]="isLoadingResults" color="primary">
+    <fa-icon [icon]="faSave"></fa-icon>
+    Submit
+  </button>
+  <button mat-raised-button (click)="reset()" [disabled]="isLoadingResults">Reset</button>
+</div>

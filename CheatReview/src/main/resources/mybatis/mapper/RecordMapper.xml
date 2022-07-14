@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hrbust.cheatreview.mapper.RecordMapper">
+    <update id="assignTask">
+        UPDATE record
+        SET reviewer_id=#{reviewer_id}, get_time=NOW()
+        WHERE state=0 AND (get_time IS NULL OR timestampdiff(hour,get_time,NOW())>=1)
+        LIMIT #{limit}
+    </update>
+
+    <select id="getUnprocessedRecord" resultType="edu.hrbust.cheatreview.bean.Record">
+        SELECT record_id,xml_data
+        FROM record
+        WHERE state=0 AND reviewer_id=#{reviewer_id} LIMIT #{limit}
+    </select>
+
+    <update id="setResult">
+        UPDATE record
+        SET state=#{state}, reviewer_id=#{reviewer_id}, review_time=NOW()
+        WHERE record_id=#{record_id}
+    </update>
+
+    <select id="getTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM record
+        WHERE state=#{state}
+        <if test="recordId!=null and recordId>0">
+            AND record_id=#{recordId}
+        </if>
+    </select>
+
+    <select id="getResult" resultType="edu.hrbust.cheatreview.bean.Record">
+        SELECT record_id,xml_data,reviewer_id,state
+        FROM record
+        WHERE state=#{state}
+        <if test="recordId!=null and recordId>0">
+            AND record_id=#{recordId}
+        </if>
+        ORDER BY record_id
+        LIMIT #{page}, #{pageSize}
+    </select>
+
+    <select id="getQContentByRecordId" resultType="java.lang.String">
+        SELECT q_content FROM q WHERE q_id=(SELECT q_id FROM record_q WHERE record_id=#{recordId})
+    </select>
+
+    <select id="getMContentByRecordId" resultType="java.lang.String">
+        SELECT m_content FROM m WHERE q_id=(SELECT q_id FROM record_q WHERE record_id=#{recordId}) LIMIT 1
+    </select>
+</mapper>
